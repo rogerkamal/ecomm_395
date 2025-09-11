@@ -2,11 +2,11 @@ import 'dart:async';
 
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecomm_395/utils/app_constants.dart';
+import 'package:ecomm_395/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/app_constants.dart';
-import '../utils/app_routes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -50,10 +50,14 @@ class _SplashPageState extends State<SplashPage> {
               ),
             ),
           ),
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
+              FlutterLogo(size: 100,),
+              SizedBox(height: 10,),
+
               Center(
                 child: Container(
                   width: 200,

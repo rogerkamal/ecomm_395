@@ -3,8 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/app_constants.dart';
-import '../utils/app_routes.dart';
+import '../../../utils/app_routes.dart';
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -270,7 +270,7 @@ class _SignInPageState extends State<SignInPage> {
                   RichText(text: TextSpan(children: [
                     TextSpan(text: "Don't have an account?",style: TextStyle(color: Colors.black38)),
                     TextSpan(text: "Sign Up",style: TextStyle(color: Colors.blue[700],fontWeight: FontWeight.bold),recognizer: TapGestureRecognizer()..onTap = (){
-                      Navigator.pushReplacementNamed(context, AppRoutes.signup);
+                      Navigator.pushNamed(context, AppRoutes.signup);
                     })
                   ])),
                 ],

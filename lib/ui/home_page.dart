@@ -98,9 +98,7 @@ class _HomePageState extends State<HomePage> {
                   child: Icon(Icons.notifications_outlined),
                 ),
               ),
-              /*
-              SizedBox(height: 20),
-          */
+
               Container(
                 width: double.infinity,
                 margin: EdgeInsets.only(top: 20,),
