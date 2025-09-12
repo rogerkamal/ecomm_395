@@ -23,10 +23,10 @@ class _SplashPageState extends State<SplashPage> {
       String nextPageName = AppRoutes.signin;
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String userId = prefs.getString(AppConstants.prefUserIdKey) ?? "";
+      String userToken = prefs.getString(AppConstants.prefUserIdKey) ?? "";
 
-      if(userId.isNotEmpty){
-        nextPageName = AppRoutes.home;
+      if(userToken.isNotEmpty){
+        nextPageName = AppRoutes.dashboard_page;
       }
 
       Navigator.pushReplacementNamed(context, nextPageName);    });

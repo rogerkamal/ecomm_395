@@ -1,5 +1,6 @@
 import 'package:ecomm_395/data/remote/helper/api_helper.dart';
 import 'package:ecomm_395/domain/constants/app_urls.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRepository {
   ApiHelper apiHelper;
@@ -14,7 +15,7 @@ class UserRepository {
     required String mobNo,
   }) async{
     try{
-      print("check url ${AppUrls.registrationUrl}");
+
       return await apiHelper.postApi(url: AppUrls.registrationUrl, mBodyParams: {
         "name": name,
         "email": email,
@@ -27,4 +28,19 @@ class UserRepository {
   }
 
   ///login user
+    Future<dynamic> loginUser({
+    required String email,
+    required String password,
+}) async {
+    try {
+      return await apiHelper.postApi(url: AppUrls.loginUrl, mBodyParams: {
+        "email" : email,
+        "password" : password
+      });
+
+    } catch (e){
+      rethrow;
+    }
+
+    }
 }

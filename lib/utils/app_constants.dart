@@ -4,7 +4,8 @@ class AppConstants {
   static const String version = '1.0.0';
 
   ///preferences
-  static const String prefUserIdKey = 'user_id';
+  /*static const String prefUserIdKey = 'user_id';*/
+  static const String prefUserIdKey = 'token';
 
 
 }
