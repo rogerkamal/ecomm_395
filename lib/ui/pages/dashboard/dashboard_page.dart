@@ -1,6 +1,6 @@
+import 'package:ecomm_395/ui/pages/cart/cart_page.dart';
 import 'package:ecomm_395/ui/pages/dashboard/nav_pages/category_page.dart';
 import 'package:ecomm_395/ui/pages/dashboard/nav_pages/favourite_page.dart';
-import 'package:ecomm_395/ui/pages/dashboard/nav_pages/mycart_page.dart';
 import 'package:ecomm_395/ui/pages/dashboard/nav_pages/user_profile_page.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,6 @@ class _DashboardPageState extends State<DashboardPage> {
     CategoryPage(),
     FavouritePage(),
     HomePage(),
-    MycartPage(),
     UserProfilePage(),
   ];
 
@@ -74,8 +73,10 @@ class _DashboardPageState extends State<DashboardPage> {
             SizedBox(width: 50),
             IconButton(
               onPressed: () {
-                selectedIndex = 3;
-                setState(() {});
+                Navigator.push(context, MaterialPageRoute(builder: (_) => CartPage()));
+
+                /*selectedIndex = 3;
+                setState(() {});*/
               },
               icon: Icon(
                 Icons.shopping_cart_outlined,
@@ -84,12 +85,12 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             IconButton(
               onPressed: () {
-                selectedIndex = 4;
+                selectedIndex = 3;
                 setState(() {});
               },
               icon: Icon(
                 Icons.account_circle_outlined,
-                color: selectedIndex == 4 ? Colors.orange : Colors.grey,
+                color: selectedIndex == 3 ? Colors.orange : Colors.grey,
               ),
             ),
           ],

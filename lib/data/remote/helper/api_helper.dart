@@ -2,13 +2,24 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ecomm_395/data/remote/helper/app_exception.dart';
+import 'package:ecomm_395/utils/app_constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiHelper {
   ///get
-  Future<dynamic> getApi({required String url}) async {
+  Future<dynamic> getApi({
+    required String url,
+    Map<String, String>? mHeaderParams,
+  }) async {
+    mHeaderParams ??= {};
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString(AppConstants.prefUserIdKey) ?? "";
+    mHeaderParams["Authorization"] = "Bearer $token";
+
     try {
-      var response = await http.get(Uri.parse(url));
+      var response = await http.get(Uri.parse(url), headers: mHeaderParams);
       return returnResponse(response);
     } on SocketException catch (e) {
       throw NoInternetException(msg: "Not connected to Internet");
@@ -21,11 +32,22 @@ class ApiHelper {
   Future<dynamic> postApi({
     required String url,
     Map<String, dynamic>? mBodyParams,
+    Map<String, String>? mHeaderParams,
+    bool isAuthRequest = false,
   }) async {
+    if (!isAuthRequest) {
+      mHeaderParams ??= {};
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString(AppConstants.prefUserIdKey) ?? "";
+      mHeaderParams["Authorization"] = "Bearer $token";
+    }
+
     try {
       var response = await http.post(
         Uri.parse(url),
         body: mBodyParams != null ? jsonEncode(mBodyParams) : null,
+        headers: mHeaderParams,
       );
       return returnResponse(response);
     } on SocketException catch (e) {

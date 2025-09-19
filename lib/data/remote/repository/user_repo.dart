@@ -21,7 +21,7 @@ class UserRepository {
         "email": email,
         "mobile_number": mobNo,
         "password": password
-      });
+      },isAuthRequest: true);
     } catch (e){
       rethrow;
     }
@@ -36,7 +36,7 @@ class UserRepository {
       return await apiHelper.postApi(url: AppUrls.loginUrl, mBodyParams: {
         "email" : email,
         "password" : password
-      });
+      },isAuthRequest: true);
 
     } catch (e){
       rethrow;

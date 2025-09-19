@@ -32,36 +32,6 @@ class _SignInPageState extends State<SignInPage> {
 
     context.read<UserBloc>().add(LoginUserEvent(email: email, password: pass));
 
-    /*
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: pass
-      );
-
-      if(credential.user != null){
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(AppConstants.prefUserIdKey, credential.user!.displayName.toString());
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('You are logged in successfully!!')),
-        );
-
-
-        Navigator.pushReplacementNamed(context, AppRoutes.home);
-      }
-
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    } catch (e) {
-      print(e);
-    }
-*/
-
     setState(() => isLoading = true);
   }
 
@@ -209,7 +179,7 @@ class _SignInPageState extends State<SignInPage> {
                               backgroundColor: Colors.red,
                             ),
                           );
-                          print("ErrorMsg ${state.errorMsg}");
+                          print("ErrorMsg= ${state.errorMsg}");
                         }
 
                         if (state is UserSuccessState) {
@@ -226,6 +196,7 @@ class _SignInPageState extends State<SignInPage> {
                           );
                         }
                       },
+
                       builder: (_, state) {
                         return SizedBox(
                           height: 40,
