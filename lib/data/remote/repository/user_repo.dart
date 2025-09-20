@@ -43,4 +43,16 @@ class UserRepository {
     }
 
     }
+
+
+    ///fetch user profile
+    Future<dynamic> fetchUserProfile() async {
+      try {
+        return await apiHelper.postApi(url: AppUrls.fetchUserProfileUrl);
+      }catch(e){
+        rethrow;
+      }
+    }
+
+
 }

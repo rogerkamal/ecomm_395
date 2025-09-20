@@ -8,7 +8,6 @@ class ProductLoadingState extends ProductState{}
 class ProductLoadedState extends ProductState{
 List<ProductModel> allProducts;
 
-
 ProductLoadedState({required this.allProducts});
 }
 
