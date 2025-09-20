@@ -393,12 +393,9 @@ class _HomePageState extends State<HomePage> {
                           width: double.infinity,
                           child: BlocBuilder<ProductBloc,ProductState>(
 
-
-
                               buildWhen: (ps, cs) {
                                 return isSpecialForYou;
                               },
-
 
                               builder: (context, state) {
                               if (state is ProductLoadingState){
@@ -412,7 +409,8 @@ class _HomePageState extends State<HomePage> {
                               if(state is ProductLoadedState){
 
 
-                                return GridView.builder(
+                                return state.allProducts != null && state.allProducts.isNotEmpty?
+                                GridView.builder(
                                   shrinkWrap: true,
                                   padding: EdgeInsets.zero,
                                   physics: NeverScrollableScrollPhysics(),
@@ -444,7 +442,7 @@ class _HomePageState extends State<HomePage> {
                                       price: state.allProducts[index].price!,
                                     );
                                   },
-                                );
+                                ): Center(child: Text("No Products Available"));
                               }
 
                               return Container();

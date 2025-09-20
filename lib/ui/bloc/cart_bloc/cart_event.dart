@@ -6,3 +6,7 @@ class AddToCartEvent extends CartEvent {
 
   AddToCartEvent({required this.productId, required this.qty});
 }
+
+
+class FetchCartEvent extends CartEvent{}
+class CreateOrderCartEvent extends CartEvent{}

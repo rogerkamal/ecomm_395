@@ -20,9 +20,9 @@ class _DashboardPageState extends State<DashboardPage> {
     CategoryPage(),
     FavouritePage(),
     HomePage(),
+    CartPage(),
     UserProfilePage(),
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,31 +66,38 @@ class _DashboardPageState extends State<DashboardPage> {
                 setState(() {});
               },
               icon: Icon(
-                Icons.favorite_border,
+                selectedIndex == 1 ? Icons.favorite : Icons.favorite_border,
                 color: selectedIndex == 1 ? Colors.orange : Colors.grey,
               ),
             ),
             SizedBox(width: 50),
             IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => CartPage()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => CartPage()),
+                );
 
                 /*selectedIndex = 3;
                 setState(() {});*/
               },
               icon: Icon(
-                Icons.shopping_cart_outlined,
+                selectedIndex == 3
+                    ? Icons.shopping_cart
+                    : Icons.shopping_cart_outlined,
                 color: selectedIndex == 3 ? Colors.orange : Colors.grey,
               ),
             ),
             IconButton(
               onPressed: () {
-                selectedIndex = 3;
+                selectedIndex = 4;
                 setState(() {});
               },
               icon: Icon(
-                Icons.account_circle_outlined,
-                color: selectedIndex == 3 ? Colors.orange : Colors.grey,
+                selectedIndex == 4
+                    ? Icons.account_circle
+                    : Icons.account_circle_outlined,
+                color: selectedIndex == 4 ? Colors.orange : Colors.grey,
               ),
             ),
           ],

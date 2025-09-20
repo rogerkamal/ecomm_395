@@ -20,4 +20,23 @@ class CartRepository {
       rethrow;
     }
   }
+
+  Future<dynamic> fetchCartItems() async {
+
+    try{
+      return await apiHelper.getApi(url: AppUrls.fetchCartUrl);
+    }catch(e){
+      rethrow;
+    }
+  }
+
+
+  Future<dynamic> createOrder() async {
+
+    try{
+      return await apiHelper.postApi(url: AppUrls.createOrderUrl);
+    }catch(e){rethrow;}
+
+  }
+
 }

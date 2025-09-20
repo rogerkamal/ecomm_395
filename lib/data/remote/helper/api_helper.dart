@@ -40,7 +40,9 @@ class ApiHelper {
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String token = prefs.getString(AppConstants.prefUserIdKey) ?? "";
+      print("Token goes in post api = $token");
       mHeaderParams["Authorization"] = "Bearer $token";
+
     }
 
     try {
