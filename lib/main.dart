@@ -9,7 +9,7 @@ import 'package:ecomm_395/ui/bloc/category_bloc/category_bloc.dart';
 import 'package:ecomm_395/ui/bloc/order_bloc/order_bloc.dart';
 import 'package:ecomm_395/ui/bloc/product_bloc/product_bloc.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_bloc.dart';
-import 'package:ecomm_395/ui/pages/product/view_all_products_page.dart';
+import 'package:ecomm_395/ui/pages/category_products/category_products_page.dart';
 import 'package:ecomm_395/ui/pages/dashboard/nav_pages/home_page.dart';
 import 'package:ecomm_395/utils/app_routes.dart';
 import 'package:flutter/material.dart';

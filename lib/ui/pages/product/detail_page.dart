@@ -2,6 +2,7 @@ import 'package:ecomm_395/data/remote/model/product_model.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_bloc.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_event.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_state.dart';
+import 'package:ecomm_395/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -78,7 +79,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back_ios_new),
+                        icon: CircleAvatar(
+                          radius: 10,
+                          backgroundColor: Colors.white,
+                          child: Icon(Icons.arrow_back_ios_sharp, color: Colors.black, size: 20),
+                        ),
                       ),
                     ),
                     Spacer(),
@@ -139,7 +144,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  price!,
+                  "\$${price!}",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

@@ -1,5 +1,5 @@
 
-import 'package:ecomm_395/ui/pages/product/view_all_products_page.dart';
+import 'package:ecomm_395/ui/pages/category_products/category_products_page.dart';
 import 'package:ecomm_395/ui/pages/dashboard/dashboard_page.dart';
 import 'package:ecomm_395/ui/pages/login/sign_in_page.dart';
 import 'package:ecomm_395/ui/pages/signup/sign_up_page.dart';
@@ -25,7 +25,7 @@ class AppRoutes{
     signup: (context) => SignUpPage(),
     home: (context) => HomePage(),
     dashboard_page : (context) => DashboardPage(),
-    view_all_products_page : (context) => ViewAllProductsPage(),
+    view_all_products_page : (context) => CategorizedProductsPage(),
   };
 
 }

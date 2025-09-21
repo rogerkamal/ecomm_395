@@ -193,7 +193,6 @@ class _CartPageState extends State<CartPage> {
                               autofocus: false,
                               style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
                               onPressed: () async {
-                                // Navigator.of(context).pop(); // Handle confirm
                                 await Navigator.pushNamed(
                                   context,
                                   AppRoutes.dashboard_page,
@@ -260,9 +259,9 @@ class _CartPageState extends State<CartPage> {
             Expanded(
               child: BlocBuilder<CartBloc, CartState>(
 
-                buildWhen: (ps, cs){
+               /* buildWhen: (ps, cs){
                   return isCartLoaded;
-                },
+                },*/
 
                 builder: (context, state) {
                   if (state is CartLoadingState) {
@@ -284,7 +283,6 @@ class _CartPageState extends State<CartPage> {
                               print(
                                 "Items of Cart ____${state.allCartItems!.length}",
                               );
-                              isCartLoaded =false;
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 20),
                                 child: Container(

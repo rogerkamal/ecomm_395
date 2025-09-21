@@ -10,13 +10,13 @@ import 'package:ecomm_395/ui/pages/product/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ViewAllProductsPage extends StatefulWidget {
+class CategorizedProductsPage extends StatefulWidget {
 
   @override
-  State<ViewAllProductsPage> createState() => _ViewAllProductsPageState();
+  State<CategorizedProductsPage> createState() => _CategorizedProductsPageState();
 }
 
-class _ViewAllProductsPageState extends State<ViewAllProductsPage> {
+class _CategorizedProductsPageState extends State<CategorizedProductsPage> {
   int selectedIndex = 0;
 
   List<Color> mColors = [
@@ -40,7 +40,21 @@ class _ViewAllProductsPageState extends State<ViewAllProductsPage> {
 
     return Scaffold(
 
-
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: CircleAvatar(
+              radius: 10,
+              backgroundColor: Colors.white,
+              child: Icon(Icons.arrow_back_ios_sharp, color: Colors.black, size: 20),
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -51,11 +65,11 @@ class _ViewAllProductsPageState extends State<ViewAllProductsPage> {
                     if (state is ProductLoadingState){
                       return Center(child: CircularProgressIndicator(color: Colors.orange,));
                     }
-        
+
                     if (state is ProductErrorState){
                       return Center(child: Text(state.errorMsg),);
                     }
-        
+
                     if(state is ProductLoadedState) {
                       return GridView.builder(
                         shrinkWrap: true,

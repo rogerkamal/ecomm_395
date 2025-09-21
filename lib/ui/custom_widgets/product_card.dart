@@ -54,7 +54,7 @@ class _ProductCardState extends State<ProductCard> {
                   Text(widget.name, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                   Row(
                     children: [
-                      Text(widget.price),
+                      Text("\$${widget.price}"),
                       Spacer(),
                       SizedBox(
                         height: 22,
