@@ -12,13 +12,16 @@ import 'package:ecomm_395/ui/bloc/user_bloc/user_bloc.dart';
 import 'package:ecomm_395/ui/pages/category_products/category_products_page.dart';
 import 'package:ecomm_395/ui/pages/dashboard/nav_pages/home_page.dart';
 import 'package:ecomm_395/utils/app_routes.dart';
+import 'package:ecomm_395/utils/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     MultiBlocProvider(
       providers: [
+        ChangeNotifierProvider(create: (context)=> ThemeProvider()),
         BlocProvider(
           create: (context) =>
               UserBloc(userRepository: UserRepository(apiHelper: ApiHelper())),
@@ -41,9 +44,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
       ),
+      themeMode: context.watch<ThemeProvider>().isDarkTheme ? ThemeMode.dark: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routes: AppRoutes.getRoutes(),
       initialRoute: AppRoutes.splash,

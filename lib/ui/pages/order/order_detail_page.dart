@@ -56,7 +56,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   itemBuilder: (context,index){
                     Product orderEachProduct = widget.currentOrder.product![index];
                     return ListTile(
-                      leading: CachedNetworkImage(imageUrl: orderEachProduct.image!,),
+                      leading: Image.network(orderEachProduct.image!,height: 80,width: 80,),
                       title: Text("name :${orderEachProduct.name}"),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -28,48 +28,80 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
     });
 
-
     on<FetchCartEvent>((event, emit) async {
-      emit (CartLoadingState());
+      emit(CartLoadingState());
 
-      try{
+      try {
         dynamic res = await cartRepository.fetchCartItems();
 
         print("Res fetchCart= $res");
-        if(res["status"] == "true" || res["status"]){
-
-          List<CartModel> allCartData = CartDataModel.fromJson(res).cartModel ?? [];
+        if (res["status"] == "true" || res["status"]) {
+          List<CartModel> allCartData =
+              CartDataModel.fromJson(res).cartModel ?? [];
           emit(CartSuccessState(allCartItems: allCartData));
-        }else{
+        } else {
           emit(CartFailureState(errorMsg: res["message"]));
         }
-
-
-      }catch(e){
-
+      } catch (e) {
         emit(CartFailureState(errorMsg: e.toString()));
       }
     });
 
+    on<CreateOrderCartEvent>((event, emit) async {
+      emit(CartLoadingState());
 
-    on<CreateOrderCartEvent>((event,emit) async {
-      emit (CartLoadingState());
-
-      try{
+      try {
         dynamic res = await cartRepository.createOrder();
 
         print("Res Create Order =  $res");
 
-        if(res["status"]== "true" || res["status"]){
+        if (res["status"] == "true" || res["status"]) {
           emit(CartCreateOrderSuccessState(SuccessMsg: res["message"]));
-        }else{
+        } else {
           emit(CartCreateOrderFailureState(errorMsg: res["message"]));
+        }
+      } catch (e) {
+        emit(CartCreateOrderFailureState(errorMsg: e.toString()));
+      }
+    });
+
+    on<DecrementQtyEvent>((event, emit) async {
+      emit(CartLoadingState());
+      try {
+        dynamic res = await cartRepository.decrementQty(
+          id: event.id,
+          productId: event.productId,
+          qty: event.qty,
+        );
+        
+        if(res["status"]){
+          add(FetchCartEvent());
+          // emit(DecrementQtySuccessState(successMsg: res["message"]));
+        }else{
+          emit(DecrementQtyErrorState(errorMsg: res["message"]));
+        }
+        
+      } catch (e) {
+        emit(DecrementQtyErrorState(errorMsg: e.toString()));
+      }
+    });
+
+
+    on<DeleteCartEvent>((event, emit) async {
+      emit(CartLoadingState());
+      try{
+
+        dynamic res = await cartRepository.deleteCart(cartId: event.cartId, productId: event.productId);
+
+        if(res["status"]){
+          add(FetchCartEvent());
+        }else{
+          emit(DeleteCartErrorState(errorMsg: res["message"]));
         }
 
       }catch(e){
-        emit(CartCreateOrderFailureState(errorMsg: e.toString()));
+        emit(DeleteCartErrorState(errorMsg: e.toString()));
       }
-
     });
 
   }

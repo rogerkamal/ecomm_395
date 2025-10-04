@@ -8,9 +8,14 @@ import 'package:ecomm_395/ui/bloc/user_bloc/user_event.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_state.dart';
 import 'package:ecomm_395/ui/custom_widgets/order_card.dart';
 import 'package:ecomm_395/ui/pages/order/order_detail_page.dart';
+import 'package:ecomm_395/ui/pages/settings_page.dart';
+import 'package:ecomm_395/utils/app_constants.dart';
 import 'package:ecomm_395/utils/app_routes.dart';
+import 'package:ecomm_395/utils/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -20,8 +25,8 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  CameraController? _controller;
-  Future<void>? _initializeControllerFuture;
+bool isDarkTheme =false;
+
 
   @override
   void initState() {
@@ -33,8 +38,75 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+     // isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+     isDarkTheme = context.watch<ThemeProvider>().isDarkTheme;
+
+
     return Scaffold(
       appBar: AppBar(
+          actions: [
+            PopupMenuButton<int>(
+              onSelected: (value) async {
+                if(value == 3){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SettingsPage()));
+                }
+
+                if (value == 2) {
+                  // Logout logic
+                  SharedPreferences? prefs = await SharedPreferences.getInstance();
+                  prefs.remove(AppConstants.prefUserIdKey);
+                  Navigator.pushReplacementNamed(context, AppRoutes.signin);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Logged out !"),backgroundColor: Colors.orange,),
+                  );
+                }
+              },
+              itemBuilder: (BuildContext context) => [
+                PopupMenuItem<int>(
+                  value: 1,
+                  enabled: false, // disable default tap
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Dark Theme"),
+                      Switch(
+                        value: isDarkTheme,
+                        onChanged: (val) {
+                          context.read<ThemeProvider>().isDarkTheme = val;
+                          Navigator.pop(context); // close popup
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                PopupMenuDivider(),
+                PopupMenuItem<int>(
+                  value: 2,
+                  child: Row(
+                    children: [
+                      Text("Logout"),
+                      SizedBox(width: 10,),
+                      Icon(
+                        Icons.logout,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                ),
+                PopupMenuDivider(),
+                PopupMenuItem<int>(
+                  value: 3,
+                  child: Row(
+                    children: [
+                      Text("Settings"),
+                      SizedBox(width: 10,),
+                      Icon(Icons.settings)
+                    ],
+                  ),
+                ),
+              ],
+            ),          ],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -49,10 +121,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 child: Icon(Icons.arrow_back_ios_sharp, color: Colors.black, size: 20),
               ),
             ),*/
+
+
             Text("User Profile"),
-            InkWell(
-              onTap: () {
+            /*InkWell(
+              onTap: () async {
+                SharedPreferences? prefs = await SharedPreferences.getInstance();
+                prefs.remove(AppConstants.prefUserIdKey);
                 Navigator.pushReplacementNamed(context, AppRoutes.signin);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Logged out !"),backgroundColor: Colors.orange,),
+                );
               },
               child: Icon(
                 Icons.logout,
@@ -60,7 +139,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 size: 35,
                 color: Colors.black,
               ),
-            ),
+            ),*/
           ],
         ),
       ),

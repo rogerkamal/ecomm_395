@@ -346,7 +346,7 @@ class _HomePageState extends State<HomePage> {
                           return Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: SizedBox(
-                              height: 80,
+                              height: 100,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: state.allCategories.length,
@@ -473,7 +473,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.pushNamed(context, AppRoutes.view_all_products_page, arguments: categoryInt);
       },
       child: SizedBox(
-        width: 50,
+        width: 60,
         child: Column(
           children: [
             CircleAvatar(
