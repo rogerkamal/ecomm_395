@@ -41,17 +41,17 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
+              padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(child: CachedNetworkImage(imageUrl: widget.imgPath,height: 100,width: 100,)),
+                  Center(child:Image.network(widget.imgPath,height: 70,width: 80,)),
 
                   SizedBox(
                     height: 5,
                   ),
-                  Text(widget.name, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                  Text(widget.name, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),maxLines: 2,),
                   Row(
                     children: [
                       Text("\$${widget.price}"),

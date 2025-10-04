@@ -34,3 +34,20 @@ class CartCreateOrderFailureState extends CartState{
   String errorMsg;
   CartCreateOrderFailureState({required this.errorMsg});
 }
+
+
+class DecrementQtyErrorState extends CartState{
+  String errorMsg;
+  DecrementQtyErrorState({required this.errorMsg});
+}
+
+
+class DecrementQtySuccessState extends CartState{
+  String successMsg;
+  DecrementQtySuccessState({required this.successMsg});
+}
+
+class DeleteCartErrorState extends CartState{
+  String errorMsg;
+  DeleteCartErrorState({required this.errorMsg});
+}

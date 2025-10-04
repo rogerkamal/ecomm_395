@@ -14,8 +14,10 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  bool isCartLoaded =true;
-  int quantity = 1;
+  bool isCartLoaded = true;
+  int quantityInt = 1;
+  bool isCartEmpty = false;
+  bool decrementFlag = true;
 
   @override
   void initState() {
@@ -27,9 +29,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade200,
         centerTitle: true,
         leadingWidth: 55,
         title: const Text(
@@ -55,201 +55,225 @@ class _CartPageState extends State<CartPage> {
         ),
       ),
 
-      bottomSheet: Container(
-        padding: const EdgeInsets.all(20),
-        height: 300,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade400,
-              blurRadius: 10,
-              spreadRadius: 2,
-              offset: const Offset(0, -2),
-            ),
-          ],
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 50,
-                  width: 320,
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Apply',
-                            style: TextStyle(
-                              color: Colors.orange,
-                              fontSize: 18,
+      bottomSheet: isCartEmpty
+          ? Center(
+              child: Text(
+                "Your cart is empty",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            )
+          : Container(
+              padding: const EdgeInsets.all(20),
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade400,
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                    offset: const Offset(0, -2),
+                  ),
+                ],
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 320,
+                        child: TextField(
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Apply',
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            hintText: 'Enter Discount Code',
+                            hintStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
+                            ),
+                            fillColor: Colors.grey.shade200,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 14,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              borderSide: BorderSide.none,
                             ),
                           ),
                         ),
                       ),
-                      hintText: 'Enter Discount Code',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "Subtotal",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
                       ),
-                      fillColor: Colors.grey.shade200,
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 14,
+                      Text(
+                        "\$250.00",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide.none,
+                    ],
+                  ),
+                  Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "Total:",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
+                      Text(
+                        "\$250.00",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  "Subtotal",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  "\$250.00",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  "Total:",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  "\$250.00",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: BlocConsumer<CartBloc, CartState>(
-                listener: (_, state) {
-                  if (state is CartLoadingState) {
-                    Center(
-                      child: CircularProgressIndicator(color: Colors.orange),
-                    );
-                  }
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: BlocConsumer<CartBloc, CartState>(
+                      listener: (_, state) {
+                        if (state is CartLoadingState) {
+                          Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.orange,
+                            ),
+                          );
+                        }
 
-                  if (state is CartCreateOrderFailureState) {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text("uh ohh!",style: TextStyle(color: Colors.orange),),
-                          content: Text(state.errorMsg,),
-                          actions: [
-                            /*TextButton(
+                        if (state is CartCreateOrderFailureState) {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text(
+                                  "uh ohh!",
+                                  style: TextStyle(color: Colors.orange),
+                                ),
+                                content: Text(state.errorMsg),
+                                actions: [
+                                  /*TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop(); // Close dialog
                               },
                               child: Text("Cancel"),
                             ),*/
-                            ElevatedButton(
-                              autofocus: false,
-                              style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
-                              onPressed: () async {
-                                await Navigator.pushNamed(
-                                  context,
-                                  AppRoutes.dashboard_page,
-                                );
-                              },
-                              child: Text("OK",style: TextStyle(color: Colors.white),),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    /*ScaffoldMessenger.of(context).showSnackBar(
+                                  ElevatedButton(
+                                    autofocus: false,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.orange,
+                                    ),
+                                    onPressed: () async {
+                                      await Navigator.pushNamed(
+                                        context,
+                                        AppRoutes.dashboard_page,
+                                      );
+                                    },
+                                    child: Text(
+                                      "OK",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          /*ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(state.errorMsg),
                         backgroundColor: Colors.red,
                       ),
                     );*/
-                  }
+                        }
 
-                  if (state is CartCreateOrderSuccessState) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(state.SuccessMsg),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                    Navigator.pushNamed(context, AppRoutes.dashboard_page);
-                  }
-                },
+                        if (state is CartCreateOrderSuccessState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.SuccessMsg),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.dashboard_page,
+                          );
+                        }
+                      },
 
-                builder: (context, state) {
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+
+                          onPressed: /*isCartEmpty? null:*/ () {
+                            context.read<CartBloc>().add(
+                              CreateOrderCartEvent(),
+                            );
+                          },
+                          child: Text(
+                            "Checkout",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-
-                    onPressed: () {
-                      context.read<CartBloc>().add(CreateOrderCartEvent());
-                    },
-                    child: const Text(
-                      "Checkout",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
-                },
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
 
       // Body Content
       body: Padding(
@@ -257,11 +281,35 @@ class _CartPageState extends State<CartPage> {
         child: Column(
           children: [
             Expanded(
-              child: BlocBuilder<CartBloc, CartState>(
+              child: BlocConsumer<CartBloc, CartState>(
+                listenWhen: (ps, cs) {
+                  return decrementFlag = true;
+                },
+                buildWhen: (ps, cs) {
+                  return decrementFlag = true;
+                },
+                listener: (context, state) {
+                  if (state is CartFailureState) {
+                    isCartEmpty = true;
+                    setState(() {});
+                  }
 
-               /* buildWhen: (ps, cs){
-                  return isCartLoaded;
-                },*/
+                  if (state is DecrementQtySuccessState) {
+                    decrementFlag = true;
+                    setState(() {});
+
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.successMsg)));
+                  }
+
+                  if (state is DecrementQtyErrorState) {
+                    decrementFlag = false;
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(state.errorMsg)));
+                  }
+                },
 
                 builder: (context, state) {
                   if (state is CartLoadingState) {
@@ -280,9 +328,6 @@ class _CartPageState extends State<CartPage> {
                         ? ListView.builder(
                             itemCount: state.allCartItems!.length,
                             itemBuilder: (context, index) {
-                              print(
-                                "Items of Cart ____${state.allCartItems!.length}",
-                              );
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 20),
                                 child: Container(
@@ -361,7 +406,18 @@ class _CartPageState extends State<CartPage> {
                                         children: [
                                           IconButton(
                                             padding: EdgeInsets.zero,
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              context.read<CartBloc>().add(
+                                                DeleteCartEvent(
+                                                  cartId: state
+                                                      .allCartItems![index]
+                                                      .id!,
+                                                  productId: state
+                                                      .allCartItems![index]
+                                                      .productId!,
+                                                ),
+                                              );
+                                            },
                                             icon: const Icon(
                                               CupertinoIcons.delete,
                                               color: Colors.red,
@@ -382,9 +438,34 @@ class _CartPageState extends State<CartPage> {
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    if (quantity > 1) {
-                                                      setState(
-                                                        () => quantity--,
+                                                    int qty = state
+                                                        .allCartItems![index]
+                                                        .quantity!;
+
+                                                    if (qty > 1) {
+                                                      context.read<CartBloc>().add(
+                                                        DecrementQtyEvent(
+                                                          id: state
+                                                              .allCartItems![index]
+                                                              .id!,
+                                                          productId: state
+                                                              .allCartItems![index]
+                                                              .productId!,
+                                                          qty: quantityInt,
+                                                        ),
+                                                      );
+
+                                                      quantityInt;
+                                                      setState(() {});
+                                                    } else {
+                                                      ScaffoldMessenger.of(
+                                                        context,
+                                                      ).showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            "Uh oh! Quantity is 1",
+                                                          ),
+                                                        ),
                                                       );
                                                     }
                                                   },
@@ -397,7 +478,7 @@ class _CartPageState extends State<CartPage> {
                                                 Text(
                                                   state
                                                       .allCartItems![index]
-                                                      .quantity!
+                                                      .quantity
                                                       .toString(),
                                                   style: TextStyle(
                                                     fontSize: 14,
@@ -407,7 +488,8 @@ class _CartPageState extends State<CartPage> {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-                                                    setState(() => quantity++);
+                                                    quantityInt++;
+                                                    setState(() {});
                                                   },
                                                   child: Icon(
                                                     Icons.add,
@@ -431,7 +513,6 @@ class _CartPageState extends State<CartPage> {
 
                   return Container();
                 },
-
               ),
             ),
           ],

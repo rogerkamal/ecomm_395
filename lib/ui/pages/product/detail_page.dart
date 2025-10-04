@@ -56,6 +56,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     final price = widget.currentProduct.price;
 
     return Scaffold(
+
       body: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -154,7 +155,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 Align(
                   alignment: Alignment.topRight,
                   child: Text(
-                    "Seller:Tariqul Islam",
+                    "Seller:Enterprize Inc",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
