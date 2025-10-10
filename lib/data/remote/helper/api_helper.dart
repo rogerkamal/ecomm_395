@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ecomm_395/data/remote/helper/app_exception.dart';
-import 'package:ecomm_395/utils/app_constants.dart';
+import 'package:ecomm_395/domain/utils/app_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 

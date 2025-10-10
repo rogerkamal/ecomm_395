@@ -1,12 +1,12 @@
 
 import 'package:ecomm_395/ui/pages/category_products/category_products_page.dart';
 import 'package:ecomm_395/ui/pages/dashboard/dashboard_page.dart';
+import 'package:ecomm_395/ui/pages/dashboard/nav_pages/home_page.dart';
 import 'package:ecomm_395/ui/pages/login/sign_in_page.dart';
 import 'package:ecomm_395/ui/pages/signup/sign_up_page.dart';
 import 'package:ecomm_395/ui/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
-import '../ui/pages/dashboard/nav_pages/home_page.dart';
 
 
 

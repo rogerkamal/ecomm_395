@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:ecomm_395/domain/utils/app_routes.dart';
 import 'package:ecomm_395/ui/bloc/category_bloc/category_bloc.dart';
 import 'package:ecomm_395/ui/bloc/category_bloc/category_event.dart';
 import 'package:ecomm_395/ui/bloc/category_bloc/category_state.dart';
@@ -11,7 +12,6 @@ import 'package:ecomm_395/ui/custom_widgets/product_card.dart';
 import 'package:ecomm_395/ui/pages/product/detail_page.dart';
 // import 'package:ecomm_395/ui/pages/product/product_detail_page.dart';
 // import 'package:ecomm_395/ui/pages/product/view_all_products_page.dart';
-import 'package:ecomm_395/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

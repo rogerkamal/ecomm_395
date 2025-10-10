@@ -1,8 +1,8 @@
 import 'package:ecomm_395/data/remote/model/user_model.dart';
 import 'package:ecomm_395/data/remote/repository/user_repo.dart';
+import 'package:ecomm_395/domain/utils/app_constants.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_event.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_state.dart';
-import 'package:ecomm_395/utils/app_constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

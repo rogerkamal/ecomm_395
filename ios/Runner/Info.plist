@@ -47,6 +47,13 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
     <string>We need camera access to take photos</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Profile image picker for user profile</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Profile image picker for user profile</string>
+
+
+
 
 </dict>
 </plist>

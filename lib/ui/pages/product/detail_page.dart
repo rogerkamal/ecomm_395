@@ -2,7 +2,6 @@ import 'package:ecomm_395/data/remote/model/product_model.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_bloc.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_event.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_state.dart';
-import 'package:ecomm_395/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

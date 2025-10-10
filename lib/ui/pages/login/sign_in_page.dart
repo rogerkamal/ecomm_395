@@ -1,10 +1,10 @@
+import 'package:ecomm_395/domain/utils/app_routes.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_bloc.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_state.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../utils/app_routes.dart';
 import '../../bloc/user_bloc/user_event.dart';
 
 class SignInPage extends StatefulWidget {

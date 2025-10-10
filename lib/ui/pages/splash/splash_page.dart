@@ -2,8 +2,8 @@ import 'dart:async';
 
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecomm_395/utils/app_constants.dart';
-import 'package:ecomm_395/utils/app_routes.dart';
+import 'package:ecomm_395/domain/utils/app_constants.dart';
+import 'package:ecomm_395/domain/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

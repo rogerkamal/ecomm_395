@@ -2,10 +2,10 @@ import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecomm_395/domain/utils/app_routes.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_bloc.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_event.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_state.dart';
-import 'package:ecomm_395/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

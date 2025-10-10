@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:ecomm_395/data/remote/model/order_model.dart';
+import 'package:ecomm_395/domain/utils/app_constants.dart';
+import 'package:ecomm_395/domain/utils/app_routes.dart';
+import 'package:ecomm_395/domain/utils/theme_provider.dart';
 import 'package:ecomm_395/ui/bloc/order_bloc/order_bloc.dart';
 import 'package:ecomm_395/ui/bloc/order_bloc/order_event.dart';
 import 'package:ecomm_395/ui/bloc/order_bloc/order_state.dart';
@@ -9,12 +13,11 @@ import 'package:ecomm_395/ui/bloc/user_bloc/user_state.dart';
 import 'package:ecomm_395/ui/custom_widgets/order_card.dart';
 import 'package:ecomm_395/ui/pages/order/order_detail_page.dart';
 import 'package:ecomm_395/ui/pages/settings_page.dart';
-import 'package:ecomm_395/utils/app_constants.dart';
-import 'package:ecomm_395/utils/app_routes.dart';
-import 'package:ecomm_395/utils/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -26,7 +29,7 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
 bool isDarkTheme =false;
-
+File? selectedImg;
 
   @override
   void initState() {
@@ -110,36 +113,7 @@ bool isDarkTheme =false;
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            /*InkWell(
-              onTap: (){
-                Navigator.pop(context);
-              },
-
-              child: CircleAvatar(
-                radius: 10,
-                backgroundColor: Colors.white,
-                child: Icon(Icons.arrow_back_ios_sharp, color: Colors.black, size: 20),
-              ),
-            ),*/
-
-
             Text("User Profile"),
-            /*InkWell(
-              onTap: () async {
-                SharedPreferences? prefs = await SharedPreferences.getInstance();
-                prefs.remove(AppConstants.prefUserIdKey);
-                Navigator.pushReplacementNamed(context, AppRoutes.signin);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Logged out !"),backgroundColor: Colors.orange,),
-                );
-              },
-              child: Icon(
-                Icons.logout,
-                fontWeight: FontWeight.bold,
-                size: 35,
-                color: Colors.black,
-              ),
-            ),*/
           ],
         ),
       ),
@@ -161,7 +135,50 @@ bool isDarkTheme =false;
                 }
                 if (state is UserProfileLoadedState) {
                   return ListTile(
-                    leading: ClipOval(child: Icon(Icons.camera_alt)),
+                    leading: InkWell(
+                      onTap: () async {
+                        XFile? pickedImg = await ImagePicker().pickImage(source: ImageSource.camera);
+                        if(pickedImg != null){
+                          CroppedFile? croppedFile = await ImageCropper().cropImage(sourcePath: pickedImg.path, uiSettings: [
+                            AndroidUiSettings(
+                              lockAspectRatio: true,
+                              initAspectRatio: CropAspectRatioPreset.square
+                            ),
+                            IOSUiSettings(
+                              aspectRatioLockEnabled: true,
+                              // aspectRatioPresets: [CropAspectRatioPreset.square],
+                              cropStyle: CropStyle.circle,
+                              showCancelConfirmationDialog: true
+                            ),
+                            WebUiSettings(context: context)
+                          ]);
+                          if(croppedFile!=null){
+                            selectedImg = File(croppedFile.path);
+
+                            setState(() {
+
+                            });
+                          }
+                          
+                          setState(() {
+
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          image: selectedImg != null ? DecorationImage(image: FileImage(selectedImg!),fit: BoxFit.cover): null,
+                          color: Colors.grey,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.orange,
+                            width: 2
+                          )
+                        ),
+                      ),
+                    ),
 
                     title: Text(state.userProfileData!.name!),
 
@@ -218,26 +235,6 @@ bool isDarkTheme =false;
                                   );
                                 },
                               );
-                              /*ListTile(
-                          leading: Text("${index + 1}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                          title: Text("Order Number# :${eachOrder.orderNumber!}"),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Total Amount: \$${eachOrder.totalAmount!}",
-                                style: TextStyle(
-                                  color: Colors.orange,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "Date :${eachOrder.createdAt!}",
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        );*/
                             },
                           )
                         : Center(child: Text("No Orders Yet"));

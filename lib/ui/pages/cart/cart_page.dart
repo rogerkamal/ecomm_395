@@ -1,10 +1,12 @@
+import 'package:ecomm_395/data/remote/model/cart_model.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_bloc.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_event.dart';
 import 'package:ecomm_395/ui/bloc/cart_bloc/cart_state.dart';
-import 'package:ecomm_395/utils/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../domain/utils/app_routes.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -18,6 +20,10 @@ class _CartPageState extends State<CartPage> {
   int quantityInt = 1;
   bool isCartEmpty = false;
   bool decrementFlag = true;
+  int totalAmount = 0;
+  double total = 0;
+  int eachCartItemPrice = 0;
+
 
   @override
   void initState() {
@@ -28,6 +34,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -54,6 +61,7 @@ class _CartPageState extends State<CartPage> {
           ),
         ),
       ),
+
 
       bottomSheet: isCartEmpty
           ? Center(
@@ -130,8 +138,8 @@ class _CartPageState extends State<CartPage> {
                   SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Subtotal",
                         style: TextStyle(
                           fontSize: 18,
@@ -140,8 +148,8 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                       Text(
-                        "\$250.00",
-                        style: TextStyle(
+                        "\$$total",
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -277,7 +285,7 @@ class _CartPageState extends State<CartPage> {
 
       // Body Content
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(
           children: [
             Expanded(
@@ -328,6 +336,21 @@ class _CartPageState extends State<CartPage> {
                         ? ListView.builder(
                             itemCount: state.allCartItems!.length,
                             itemBuilder: (context, index) {
+
+                              eachCartItemPrice = int.parse(state.allCartItems![index].price!)*
+                                  state.allCartItems![index]
+                                      .quantity!;
+                              /*totalAmount = 0;
+                              for(var item in state.allCartItems!){
+                              totalAmount += int.parse(item.price!)*
+                                  item.quantity!;
+                              }*/
+
+                              var products = state.allCartItems!;
+                              total = calculateTotal(products);
+
+
+
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 20),
                                 child: Container(
@@ -370,7 +393,7 @@ class _CartPageState extends State<CartPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
+                                        Text(
                                               state.allCartItems![index].name!,
                                               style: TextStyle(
                                                 fontSize: 16,
@@ -388,7 +411,9 @@ class _CartPageState extends State<CartPage> {
                                             ),
                                             const SizedBox(height: 8),
                                             Text(
-                                              "\$${state.allCartItems![index].price!}",
+                                              "\$${int.parse(state.allCartItems![index].price!)*
+                                                  state.allCartItems![index]
+                                                      .quantity!}",
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
@@ -454,9 +479,11 @@ class _CartPageState extends State<CartPage> {
                                                           qty: quantityInt,
                                                         ),
                                                       );
-
+                                                      // totalAmount;
                                                       quantityInt;
-                                                      setState(() {});
+                                                      setState(() {
+                                                        totalAmount -=eachCartItemPrice;
+                                                      });
                                                     } else {
                                                       ScaffoldMessenger.of(
                                                         context,
@@ -499,10 +526,11 @@ class _CartPageState extends State<CartPage> {
                                                         qty: -quantityInt,
                                                       ),
                                                     );
-
-
+                                                    // totalAmount;
                                                     quantityInt;
-                                                    setState(() {});
+                                                    setState(() {
+                                                      totalAmount +=eachCartItemPrice;
+                                                    });
                                                   },
                                                   child: Icon(
                                                     Icons.add,
@@ -532,5 +560,8 @@ class _CartPageState extends State<CartPage> {
         ),
       ),
     );
+  }
+  double calculateTotal(List<CartModel> products) {
+    return products.fold(0.0, (totalAmount, item) => totalAmount + double.parse(item.price!)*item.quantity!);
   }
 }
