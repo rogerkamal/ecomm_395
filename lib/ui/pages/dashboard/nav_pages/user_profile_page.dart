@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -28,7 +29,6 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  bool isDarkTheme = false;
   File? selectedImg;
 
   @override
@@ -40,12 +40,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsFlutterBinding.ensureInitialized();
-    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-    // isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-    isDarkTheme = context.watch<ThemeProvider>().isDarkTheme;
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -71,6 +65,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ),
                 );
               }
+
+              if (value == 1) {}
             },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<int>(
@@ -79,27 +75,37 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    isDarkTheme
-                        ? Text(
-                            "Dark Theme",
-                            style: TextStyle(color: Colors.white),
-                          )
-                        : Text(
-                            "Dark Theme",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                    Switch(
-                      value: isDarkTheme,
-                      onChanged: (val) {
-                        context.read<ThemeProvider>().isDarkTheme = val;
-                        Navigator.pop(context); // close popup
+                    // Text("Dark Mode"),
+                    Consumer<ThemeProvider>(
+                      builder: (context, themeProvider, child) {
+                        return Row(
+                          children: [
+                            Text(
+                              themeProvider.isDarkTheme
+                                  ? "Light Theme"
+                                  : "Dark Theme",
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.color),
+                            ),
+                            SizedBox(width: 10,),
+                            Switch(
+                              value: themeProvider.isDarkTheme,
+                              onChanged: (value) {
+                                themeProvider.isDarkTheme = value;
+                              },
+                            ),
+                          ],
+                        );
                       },
                     ),
                   ],
                 ),
               ),
-              PopupMenuDivider(),
-              PopupMenuItem<int>(
+              const PopupMenuDivider(),
+              const PopupMenuItem<int>(
                 value: 2,
                 child: Row(
                   children: [
@@ -109,8 +115,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   ],
                 ),
               ),
-              PopupMenuDivider(),
-              PopupMenuItem<int>(
+              const PopupMenuDivider(),
+              const PopupMenuItem<int>(
                 value: 3,
                 child: Row(
                   children: [

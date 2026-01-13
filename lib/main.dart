@@ -1,3 +1,4 @@
+import 'package:ecomm_395/data/firebase/firebase_options.dart';
 import 'package:ecomm_395/data/remote/helper/api_helper.dart';
 import 'package:ecomm_395/data/remote/repository/cart_repo.dart';
 import 'package:ecomm_395/data/remote/repository/categories_repo.dart';
@@ -11,11 +12,16 @@ import 'package:ecomm_395/ui/bloc/category_bloc/category_bloc.dart';
 import 'package:ecomm_395/ui/bloc/order_bloc/order_bloc.dart';
 import 'package:ecomm_395/ui/bloc/product_bloc/product_bloc.dart';
 import 'package:ecomm_395/ui/bloc/user_bloc/user_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(
     MultiBlocProvider(
       providers: [
@@ -42,10 +48,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ecomm',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
+      // theme: ThemeData.light(),
+      /*darkTheme: ThemeData(),*/
+      darkTheme: ThemeData.dark(),
       themeMode: context.watch<ThemeProvider>().isDarkTheme ? ThemeMode.dark: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routes: AppRoutes.getRoutes(),
