@@ -82,8 +82,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           children: [
                             Text(
                               themeProvider.isDarkTheme
-                                  ? "Light Theme"
-                                  : "Dark Theme",
+                                  ? "Dark Mode On"
+                                  : "Dark Mode Off",
                               style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme

@@ -44,7 +44,8 @@ class _SplashPageState extends State<SplashPage> {
               /*color: Colors.blueGrey*/
               image: DecorationImage(
                 image: CachedNetworkImageProvider(
-                  "https://images.unsplash.com/photo-1504672281656-e4981d70414b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  "https://picsum.photos/200/550"
+                  // "https://images.unsplash.com/photo-1504672281656-e4981d70414b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                 ),
                 fit: BoxFit.cover,
               ),
@@ -55,19 +56,20 @@ class _SplashPageState extends State<SplashPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              FlutterLogo(size: 100,),
+              // FlutterLogo(size: 100,),
+              Icon(Icons.shopping_cart, size: 100, color: Colors.orange,),
               SizedBox(height: 10,),
 
               Center(
                 child: Container(
                   width: 200,
-                  height: 50,
+                  height: 60,
                   decoration: BoxDecoration(
                     color: Colors.black
                   ),
                   child: Center(
                     child: Text(
-                      "Splash Page",
+                      "GROCERY SHOP",
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.white,
