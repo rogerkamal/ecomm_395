@@ -1,0 +1,38 @@
+//how to use SignUptextFieldStyle to decorate widgets ?
+
+
+import 'package:flutter/material.dart';
+import 'package:ecomm_395/domain/utils/ui_helper/textfield_style.dart';
+
+class SignUpScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign Up'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: SignUpTextFieldStyle().textFieldDecoration(
+                label: 'Email',
+                hint: 'Enter your email',
+                icon: Icons.email,
+              ),
+            ),
+            SizedBox(height: 16),
+            TextFormField(
+              obscureText: true,
+              decoration: SignUpTextFieldStyle().textFieldDecoration(
+                label: 'Password',
+                hint: 'Enter your password',
+                icon: Icons.lock,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
